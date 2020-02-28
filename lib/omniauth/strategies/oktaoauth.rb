@@ -18,6 +18,7 @@ module OmniAuth
         site:          "configure this part ins client options with devise",
         authorize_url: "configure this part in client options with devise",
         token_url:     "configure this part in client options with devise",
+        user_info_url:     "configure this part in client options with devise",
         response_type: 'id_token'
       }
 
@@ -62,7 +63,11 @@ module OmniAuth
           options[:auth_server_id] = ""
         end
 
-        @_raw_info ||= access_token.get('/oauth2/' + options[:auth_server_id] + 'v1/userinfo').parsed || {}
+        if !options[:user_info_url]
+          options[:user_info_url] = '/oauth2/' + options[:auth_server_id] + '/v1/userinfo'
+        end
+
+        @_raw_info ||= access_token.get(options[:user_info_url]).parsed || {}
       rescue ::Errno::ETIMEDOUT
         raise ::Timeout::Error
       end
