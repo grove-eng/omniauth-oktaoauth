@@ -46,7 +46,8 @@ config.omniauth(:oktaoauth, ENV['OKTA_CLIENT_ID'], ENV['OKTA_CLIENT_SECRET'],
   client_options: {
     site: ENV['OKTA_ISSUER'],
     authorize_url: ENV['OKTA_ISSUER'] + "/v1/authorize",
-    token_url: ENV['OKTA_ISSUER'] + "/v1/token"
+    token_url: ENV['OKTA_ISSUER'] + "/v1/token",
+    user_info_url: ENV['OKTA_ISSUER'] + "/v1/userInfo"
    },
   redirect_uri: ENV["OKTA_REDIRECT_URI"],
   auth_server_id: ENV['OKTA_AUTH_SERVER_ID'],
